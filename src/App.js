@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { value } = useForm({
+    email: "",
+    password: ""
+  });
 
   const handleChangeEmail = e => setEmail(e.target.value);
 
@@ -15,7 +17,7 @@ function App() {
         <FormGroup>
           <Label for="email">Email</Label>
           <Input
-            value={email}
+            value={value.email}
             onChange={handleChangeEmail}
             type="email"
             name="email"
@@ -26,7 +28,7 @@ function App() {
         <FormGroup>
           <Label for="password">Password</Label>
           <Input
-            value={password}
+            value={value.password}
             onChange={handleChangePassword}
             type="password"
             name="password"
@@ -42,3 +44,13 @@ function App() {
 }
 
 export default App;
+
+// The useForm function is created here just to show it easier with GitHistory.
+// You should create a separate file for it.
+export function useForm(initialState) {
+  const [value, setValue] = useState(initialState);
+
+  return {
+    value
+  };
+}
