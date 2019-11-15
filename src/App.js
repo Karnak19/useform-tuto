@@ -2,14 +2,10 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 function App() {
-  const { value } = useForm({
+  const { value, handleChange } = useForm({
     email: "",
     password: ""
   });
-
-  const handleChangeEmail = e => setEmail(e.target.value);
-
-  const handleChangePassword = e => setPassword(e.target.value);
 
   return (
     <div className="App">
@@ -18,7 +14,7 @@ function App() {
           <Label for="email">Email</Label>
           <Input
             value={value.email}
-            onChange={handleChangeEmail}
+            onChange={handleChange}
             type="email"
             name="email"
             id="email"
@@ -29,7 +25,7 @@ function App() {
           <Label for="password">Password</Label>
           <Input
             value={value.password}
-            onChange={handleChangePassword}
+            onChange={handleChange}
             type="password"
             name="password"
             id="password"
@@ -50,7 +46,15 @@ export default App;
 export function useForm(initialState) {
   const [value, setValue] = useState(initialState);
 
+  const handleChange = e => {
+    setValue({
+      ...value,
+      [e.target.name]: e.target.value
+    });
+  };
+
   return {
-    value
+    value,
+    handleChange
   };
 }
