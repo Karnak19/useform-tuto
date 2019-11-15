@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 function App() {
-  const { value, handleChange } = useForm({
+  const { value, handleChange, handleSubmit } = useForm({
     email: "",
     password: ""
   });
 
   return (
     <div className="App">
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for="email">Email</Label>
           <Input
@@ -53,8 +53,14 @@ export function useForm(initialState) {
     });
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log("Submitted !");
+  };
+
   return {
     value,
-    handleChange
+    handleChange,
+    handleSubmit
   };
 }
